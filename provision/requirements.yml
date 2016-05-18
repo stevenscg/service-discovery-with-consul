@@ -3,6 +3,8 @@
 # Ansible required roles
 #
 
+- src: geerlingguy.nginx
+  name: nginx
 
 - src: https://github.com/stevenscg/ansible-role-supervisor
   version: master

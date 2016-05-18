@@ -3,6 +3,9 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "geerlingguy/centos7"
+
+  config.vm.network :forwarded_port, guest: 8000, host: 8000,  auto_correct: true # consul-ui
+
   config.ssh.insert_key = false
 
   # Installs any additional system packages required by

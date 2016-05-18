@@ -1,6 +1,6 @@
 
 .DS_store
 .vagrant
-.retry
+*.retry
 
 provision/roles/*

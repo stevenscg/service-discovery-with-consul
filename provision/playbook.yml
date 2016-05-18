@@ -15,6 +15,10 @@
     consul_bootstrap_expect: 1
 
   roles:
+    - role: nginx
+      tags:
+        - nginx
+
     - role: supervisor
       supervisor_bin_dir: /usr/bin
       tags:
@@ -25,5 +29,6 @@
       # consul_node_name: "{{ consul_name_prefix }}::{{ ansible_ec2_instance_id }}"
       # consul_bind_address: "{{ ansible_default_ipv4['address'] }}"
       consul_install_dnsmasq: true
+      consul_install_ui: true
       tags:
         - consul
