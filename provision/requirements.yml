@@ -1,0 +1,13 @@
+---
+#
+# Ansible required roles
+#
+
+
+- src: https://github.com/stevenscg/ansible-role-supervisor
+  version: master
+  name: supervisor
+
+- src: https://github.com/stevenscg/ansible-role-consul
+  version: master
+  name: consul
