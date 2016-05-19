@@ -6,17 +6,20 @@
 - src: geerlingguy.repo-remi
   name: repo-remi
 
-- src: geerlingguy.composer
-  name: composer
-
 - src: geerlingguy.php
   name: php
+
+- src: geerlingguy.composer
+  name: composer
 
 - src: geerlingguy.nodejs
   name: nodejs
 
 - src: geerlingguy.nginx
   name: nginx
+
+- src: dmichel1.statsd
+  name: statsd
 
 - src: https://github.com/stevenscg/ansible-role-supervisor
   version: master

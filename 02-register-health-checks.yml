@@ -1,0 +1,46 @@
+---
+#
+# Service discovery demonstration
+# Register a health check
+#
+# @author Chris Stevens https://github.com/stevenscg
+#
+# Usage
+#   ansible-playbook 02-register-health-checks.yml -i .vagrant/provisioners/ansible/inventory
+#
+
+
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: Fetch existing health checks from consul API
+      uri:
+        url: http://localhost:8500/v1/agent/checks
+        return_content: yes
+      register: consul_checks
+
+    - name: Existing health checks
+      debug:
+        msg: "{{ consul_checks.json | to_nice_json }}"
+
+    - name: Register a status code check for the demo-app
+      consul:
+        check_id: service:web:status_code
+        check_name: service:web:status_code
+        interval: 10s
+        http: http://localhost:8001
+
+    - name: Wait for the checks to be evaluated (5 seconds)
+      pause:
+        seconds: 5
+
+    - name: Fetch updated health checks from consul API
+      uri:
+        url: http://localhost:8500/v1/agent/checks
+        return_content: yes
+      register: consul_checks
+
+    - name: Updated health checks
+      debug:
+        msg: "{{ consul_checks.json | to_nice_json }}"

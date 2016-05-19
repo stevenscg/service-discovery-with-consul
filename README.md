@@ -64,10 +64,66 @@ This section provides step by step demonstrations of a key service discovery fea
 capabilities.
 
 
-### Step 1: Register a service with Consul
+### Step 1: Services
+
+Ansible:
+```
+ansible-playbook 01-register-service.yml -i .vagrant/provisioners/ansible/inventory
+```
+
+CURL:
+```
+# Register statsd and our demo-app (web) services and associated checks.
+curl -q -X PUT http://localhost:8500/v1/agent/service/register --header "Content-Type:application/json" -d '{
+  "ID": "statsd",
+  "Name": "statsd",
+  "Address": "127.0.0.1",
+  "Port": 8125,
+  "Check": {
+    "Script": "echo stats | nc localhost 8126",
+    "Interval": "30s"
+  }
+}'
+
+curl -q -X PUT http://localhost:8500/v1/agent/service/register --header "Content-Type:application/json" -d '{
+  "ID": "web",
+  "Name": "web",
+  "Address": "127.0.0.1",
+  "Port": 8001,
+  "Check": {
+    "HTTP": "http://localhost:8001/health_check",
+    "Interval": "10s"
+  }
+}'
+
+# View the updated services
+curl http://localhost:8500/v1/agent/services | jq .
+```
 
 
 ### Step 2: Health checks
+
+Ansible:
+```
+ansible-playbook 02-register-health-checks.yml -i .vagrant/provisioners/ansible/inventory
+```
+
+CURL:
+```
+# View existing checks (from step 1, etc)
+curl http://localhost:8500/v1/agent/checks | jq .
+
+# Register a check for the demo-app (web)
+curl -q -X PUT http://localhost:8500/v1/agent/check/register --header "Content-Type:application/json" -d '{
+  "ID": "service:web:status_code",
+  "Name": "service:web:status_code",
+  "HTTP": "http://localhost:8001",
+  "Interval": "10s"
+}'
+
+# View the updated health checks
+curl http://localhost:8500/v1/agent/services | jq .
+```
 
 
 ### Step 3: Integrate with the DNS interface

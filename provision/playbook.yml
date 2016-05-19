@@ -14,6 +14,17 @@
     consul_datacenter: local
     consul_bootstrap_expect: 1
 
+  pre_tasks:
+    - name: Install additional OS packages
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - python-httplib2
+        - vim-enhanced
+        - telnet
+        - nc
+
   roles:
     - role: repo-remi
       tags:
@@ -35,6 +46,17 @@
       tags:
         - nginx
 
+    - role: nodejs
+      nodejs_version: "5.x"
+      tags:
+        - nodejs
+
+    - role: statsd
+      statsd_version: v0.8.0
+      tags:
+        - statsd
+        - monitoring
+
     - role: supervisor
       supervisor_bin_dir: /usr/bin
       tags:
@@ -42,8 +64,6 @@
 
     - role: consul
       consul_is_server: true
-      # consul_node_name: "{{ consul_name_prefix }}::{{ ansible_ec2_instance_id }}"
-      # consul_bind_address: "{{ ansible_default_ipv4['address'] }}"
       consul_install_dnsmasq: true
       consul_install_ui: true
       tags:

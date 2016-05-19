@@ -1,0 +1,49 @@
+---
+#
+# Service discovery demonstration
+# Register a service
+#
+# @author Chris Stevens https://github.com/stevenscg
+#
+# Usage
+#   ansible-playbook 01-register-service.yml -i .vagrant/provisioners/ansible/inventory
+#
+
+
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: Fetch existing services from consul API
+      uri:
+        url: http://localhost:8500/v1/catalog/services
+        return_content: yes
+      register: consul_services
+
+    - name: Existing services
+      debug:
+        msg: "{{ consul_services.json | to_nice_json }}"
+
+    - name: Register statsd with consul
+      consul:
+        service_name: statsd
+        service_port: 8125
+        interval: 30s
+        script: "echo stats | nc localhost 8126"
+
+    - name: Register demo-app with consul
+      consul:
+        service_name: web
+        service_port: 8001
+        interval: 10s
+        http: http://localhost:8001/health_check
+
+    - name: Fetch updated services from consul API
+      uri:
+        url: http://localhost:8500/v1/catalog/services
+        return_content: yes
+      register: consul_services
+
+    - name: Updated services
+      debug:
+        msg: "{{ consul_services.json | to_nice_json }}"
