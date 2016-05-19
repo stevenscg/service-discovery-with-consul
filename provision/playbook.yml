@@ -3,7 +3,7 @@
 # Ansible playbook for a developer server featuring Consul
 # for service discovery.
 #
-# @author Chris Stevens (2016)
+# @author Chris Stevens https://github.com/stevenscg
 #
 
 
@@ -15,6 +15,22 @@
     consul_bootstrap_expect: 1
 
   roles:
+    - role: repo-remi
+      tags:
+        - repos
+
+    - role: php
+      php_enable_php_fpm: true
+      php_webserver_daemon: nginx
+      php_opcache_enabled_in_ini: true
+      php_enablerepo: "remi,remi-php70"
+      tags:
+        - php
+
+    - role: composer
+      tags:
+        - php
+
     - role: nginx
       tags:
         - nginx
