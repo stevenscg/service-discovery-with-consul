@@ -29,7 +29,7 @@
         service_name: statsd
         service_port: 8125
         interval: 30s
-        script: "echo stats | nc localhost 8126"
+        script: "echo stats | nc localhost 8126 | grep uptime"
 
     - name: Register demo-app with consul
       consul:
@@ -37,6 +37,17 @@
         service_port: 8001
         interval: 10s
         http: http://localhost:8001/health_check
+
+    - name: Register memcached with consul
+      consul:
+        service_name: cache
+        service_port: 11211
+        interval: 30s
+        script: "echo stats | nc localhost 11211 | grep uptime"
+
+    - name: Wait for the checks to be evaluated (3 seconds)
+      pause:
+        seconds: 3
 
     - name: Fetch updated services from consul API
       uri:

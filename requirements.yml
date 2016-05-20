@@ -21,6 +21,9 @@
 - src: dmichel1.statsd
   name: statsd
 
+- src: geerlingguy.memcached
+  name: memcached
+
 - src: https://github.com/stevenscg/ansible-role-supervisor
   version: master
   name: supervisor

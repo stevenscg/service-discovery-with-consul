@@ -51,6 +51,10 @@
       tags:
         - nodejs
 
+    - role: memcached
+      tags:
+        - memcached
+
     - role: statsd
       statsd_version: v0.8.0
       tags:

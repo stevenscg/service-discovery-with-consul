@@ -73,18 +73,19 @@ ansible-playbook 01-register-service.yml -i .vagrant/provisioners/ansible/invent
 
 CURL:
 ```
-# Register statsd and our demo-app (web) services and associated checks.
+# Register statsd service and associated checks.
 curl -q -X PUT http://localhost:8500/v1/agent/service/register --header "Content-Type:application/json" -d '{
   "ID": "statsd",
   "Name": "statsd",
   "Address": "127.0.0.1",
   "Port": 8125,
   "Check": {
-    "Script": "echo stats | nc localhost 8126",
+    "Script": "echo stats | nc localhost 8126 | grep uptime",
     "Interval": "30s"
   }
 }'
 
+# Register demo-app (web) service and associated checks.
 curl -q -X PUT http://localhost:8500/v1/agent/service/register --header "Content-Type:application/json" -d '{
   "ID": "web",
   "Name": "web",
@@ -93,6 +94,18 @@ curl -q -X PUT http://localhost:8500/v1/agent/service/register --header "Content
   "Check": {
     "HTTP": "http://localhost:8001/health_check",
     "Interval": "10s"
+  }
+}'
+
+# Register memcached service and checks.
+curl -q -X PUT http://localhost:8500/v1/agent/service/register --header "Content-Type:application/json" -d '{
+  "ID": "cache",
+  "Name": "cache",
+  "Address": "127.0.0.1",
+  "Port": 11211,
+  "Check": {
+    "Script": "echo stats | nc localhost 11211 | grep uptime",
+    "Interval": "30s"
   }
 }'
 
@@ -122,7 +135,7 @@ curl -q -X PUT http://localhost:8500/v1/agent/check/register --header "Content-T
 }'
 
 # View the updated health checks
-curl http://localhost:8500/v1/agent/services | jq .
+curl http://localhost:8500/v1/agent/checks | jq .
 ```
 
 
@@ -144,14 +157,24 @@ http://localhost:8001/demos/api
 
 ### Step 5: Key / Value Storage
 
+See how the demo application uses the Consul KV store:
+```
+http://localhost:8001/demos/kv
+```
 
-### Step 6: consul-template
+
+### Step 6: Distributed Locks
+
+See how the demo application uses Consul for distributed locks:
+```
+http://localhost:8001/demos/locks
+```
 
 
-### Step 7: envconsul
+### Step 7: consul-template
 
 
-### Step 8: Distributed locks
+### Step 8: envconsul
 
 
 ### Advanced Topics

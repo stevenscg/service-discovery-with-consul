@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/demos/dns', 'DemosController@dns')->name('demos.dns');
-Route::get('/demos/api', 'DemosController@api')->name('demos.api');
-Route::get('/demos/kv',  'DemosController@kv')->name('demos.kv');
+Route::get('/demos/dns',   'DemosController@dns')->name('demos.dns');
+Route::get('/demos/api',   'DemosController@api')->name('demos.api');
+Route::get('/demos/kv',    'DemosController@kv')->name('demos.kv');
+Route::get('/demos/locks', 'DemosController@locks')->name('demos.locks');

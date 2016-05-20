@@ -31,9 +31,9 @@
         interval: 10s
         http: http://localhost:8001
 
-    - name: Wait for the checks to be evaluated (5 seconds)
+    - name: Wait for the checks to be evaluated (3 seconds)
       pause:
-        seconds: 5
+        seconds: 3
 
     - name: Fetch updated health checks from consul API
       uri:
