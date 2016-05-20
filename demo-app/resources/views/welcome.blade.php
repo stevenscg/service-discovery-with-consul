@@ -25,11 +25,12 @@
       <p>Demonstrates use of the Consul Key / Value store.</p>
       <p><a class="btn btn-default" href="demos/kv" role="button">View details &raquo;</a></p>
     </div>
+  </div>
 
   <div class="row">
     <div class="col-md-4">
       <h2>Distributed Locks</h2>
-      <p>Uses the Consul session and KV for locks.</p>
+      <p>Use the Consul session and KV for locks.</p>
       <p><a class="btn btn-default" href="demos/locks" role="button">View details &raquo;</a></p>
     </div>
   </div>

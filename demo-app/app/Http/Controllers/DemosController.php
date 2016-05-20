@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers;
 
+use Camspiers\JsonPretty\JsonPretty;
 use SensioLabs\Consul;
 
 class DemosController extends Controller
@@ -11,13 +12,32 @@ class DemosController extends Controller
 
     public function dns()
     {
-        return view('demos.dns');
+        $dns = new Consul\Helper\Dns();
+
+        $results = [];
+
+        $results[] = dns_get_record('statsd.service.consul', DNS_SRV);
+        $results[] = $dns->srv('statsd.service.consul');
+
+        $jp = new JsonPretty;
+        return view('demos.dns', compact('jp', 'results'));
     }
 
 
     public function api()
     {
-        return view('demos.api');
+        $sf = new Consul\ServiceFactory();
+
+        $results = [];
+
+        $catalog = $sf->get('catalog');
+        $results[] = json_decode($catalog->services()->getBody(), true);
+
+        $health = $sf->get('health');
+        $results[] = json_decode($health->service('cache', ['near' => '_agent', 'passing' => 1])->getBody(), true);
+
+        $jp = new JsonPretty;
+        return view('demos.api', compact('jp', 'results'));
     }
 
 
@@ -31,7 +51,8 @@ class DemosController extends Controller
         $result = $kv->get('test/foo/bar');
         $value  = json_decode($result->getBody(), true);
 
-        return view('demos.kv', compact('value'));
+        $jp = new JsonPretty;
+        return view('demos.kv', compact('jp', 'value'));
     }
 
 
@@ -49,6 +70,7 @@ class DemosController extends Controller
         // Release the Consul processing lock
         $lh->release();
 
-        return view('demos.locks', compact('lockAcquired'));
+        $jp = new JsonPretty;
+        return view('demos.locks', compact('jp', 'lockAcquired'));
     }
 }

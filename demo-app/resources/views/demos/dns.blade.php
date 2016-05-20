@@ -4,19 +4,39 @@
     <div class="row">
         <h2>DNS</h2>
         <div>
-            <h3>Code</h3>
-            <pre>var_export(dns_get_record('statsd.service.consul', DNS_SRV))</pre>
-            <pre>var_export(dns_get_record('cache.service.consul', DNS_SRV))</pre>
+            <h3>Example 1: Pure PHP</h3>
+            <h4>Code</h4>
+            <pre>dns_get_record('statsd.service.consul', DNS_SRV)</pre>
         </div>
         <div>
-            <h3>Output</h3>
-            <pre>{{ var_export(dns_get_record('statsd.service.consul', DNS_SRV)) }}</pre>
-            <pre>{{ var_export(dns_get_record('cache.service.consul', DNS_SRV)) }}</pre>
+            <h4>Output</h4>
+            <pre>{{ $jp->prettify($results[0], null, '  ') }}</pre>
         </div>
+
+        <hr/>
+
+        <div>
+            <h3>Example 1: Consul PHP SDK</h3>
+            <h4>Code</h4>
+            <pre>
+$dns = new Consul\Helper\Dns();
+
+$results = [];
+
+$results[] = $dns->srv('statsd.service.consul');
+return $results;
+            </pre>
+        </div>
+        <div>
+            <h4>Output</h4>
+            <pre>{{ $jp->prettify($results[1], null, '  ') }}</pre>
+        </div>
+
+        <hr/>
 
         <div class="page-nav">
             <a class="btn btn-large btn-primary pull-left" href="/">&laquo; Back: Home</a>
-            <a class="btn btn-large btn-primary pull-right" href="/demos/api">&raquo; Next: API</a>
+            <a class="btn btn-large btn-primary pull-right" href="/demos/api">Next: API &raquo;</a>
         </div>
     </div>
 </div>

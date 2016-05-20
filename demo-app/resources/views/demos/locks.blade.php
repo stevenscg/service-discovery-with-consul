@@ -25,9 +25,11 @@ $lh->release();
             <p>Lock Acquired: {{ $lockAcquired }}</p>
         </div>
 
+        <hr/>
+
         <div class="page-nav">
             <a class="btn btn-large btn-primary pull-left" href="/demos/kv">&laquo; Back: Key / Value</a>
-            <a class="btn btn-large btn-primary pull-right" href="/">&raquo; Start Over</a>
+            <a class="btn btn-large btn-primary pull-right" href="/">Start Over &raquo;</a>
         </div>
     </div>
 </div>
