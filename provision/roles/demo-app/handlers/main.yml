@@ -1,0 +1,22 @@
+#
+# Handlers for demo-app
+#
+# @see http://docs.ansible.com/playbooks_intro.html#handlers-running-operations-on-change
+#
+# Notes:
+#  "Notify handlers are always run in the order written."
+#
+---
+
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+  become: yes
+
+- name: Restart php-fpm
+  service:
+    name: php-fpm
+    state: restarted
+  become: yes

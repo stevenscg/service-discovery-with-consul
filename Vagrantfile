@@ -7,6 +7,7 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "demo"
 
   config.vm.network :forwarded_port, guest: 8000, host: 8000,  auto_correct: true # consul-ui
+  config.vm.network :forwarded_port, guest: 8001, host: 8001,  auto_correct: true # demo-app
 
   # Run Ansible from the host machine to provision the VM
   config.vm.provision "ansible" do |ansible|

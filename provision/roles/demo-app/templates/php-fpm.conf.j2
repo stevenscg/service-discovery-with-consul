@@ -1,0 +1,19 @@
+;
+; PHP-FPM configuration for demo
+; {{ ansible_managed }}
+;
+
+[{{ app_name }}]
+listen = {{ app_php_fpm_socket }}
+listen.owner = nginx
+listen.group = nginx
+listen.mode = 0660
+user = {{ app_php_fpm_user }}
+group = {{ app_php_fpm_group }}
+pm = dynamic
+pm.max_children = 10
+pm.start_servers = 1
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+pm.max_requests = 500
+chdir = {{ app_runtime_path }}

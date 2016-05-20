@@ -68,3 +68,7 @@
       consul_install_ui: true
       tags:
         - consul
+
+    - role: demo-app
+      tags:
+        - app

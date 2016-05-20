@@ -1,0 +1,33 @@
+#
+# Default Role Variables for demo application
+#
+# @see http://docs.ansible.com/playbooks_roles.html#roles
+#
+
+app_name:   demo-app
+
+app_deploy_user:  vagrant
+app_deploy_group: vagrant
+
+app_deploy_path:  /vagrant/demo-app
+app_runtime_path: "{{ app_deploy_path }}"
+
+# Consul (service registry) information
+app_consul_enabled: "{{ consul_enabled | default(false) }}"
+app_consul_services:
+  - service_name: admin
+    service_port: 8001
+    interval: 10s
+    http: http://localhost:8001/health_check
+
+# Nginx
+app_nginx_port: 8001
+app_nginx_root: "{{ app_runtime_path }}/public"
+app_nginx_error_log:  /var/log/nginx/error-demo-app.log
+app_nginx_access_log: /var/log/nginx/access-demo-app.log
+
+# PHP-FPM
+app_php_fpm_user:  "{{ app_deploy_user }}"
+app_php_fpm_group: "{{ app_deploy_group }}"
+app_php_fpm_daemon: php-fpm
+app_php_fpm_socket: /var/run/php-fpm/{{ app_name }}.sock

@@ -1,0 +1,46 @@
+#
+# Nginx configuration for demo application
+# {{ ansible_managed }}
+#
+
+server {
+    listen [::]:{{ app_nginx_port }};
+    listen {{ app_nginx_port }};
+
+    server_name _;
+
+    # Health check endpoint
+    location /health_check {
+        access_log off;
+        allow 127.0.0.1;
+        allow 10.0.0.0/8;
+        return 200;
+    }
+
+    client_max_body_size 8M;
+
+    # Root directive should be global
+    root   {{ app_nginx_root }};
+    index  index.php;
+
+    # Logging
+    error_log  {{ app_nginx_error_log }};
+    access_log {{ app_nginx_access_log }};
+
+    # Specify a charset
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        include /etc/nginx/fastcgi_params;
+        fastcgi_pass    unix:{{ app_php_fpm_socket }};
+        fastcgi_index   index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param SERVER_NAME $http_host;
+        fastcgi_read_timeout 180s;
+    }
+}

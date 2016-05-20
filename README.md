@@ -128,8 +128,18 @@ curl http://localhost:8500/v1/agent/services | jq .
 
 ### Step 3: Integrate with the DNS interface
 
+See how the demo application uses Consul DNS to lookup the `statsd` service:
+```
+http://localhost:8001/demos/dns
+```
+
 
 ### Step 4: Integrate with the HTTP API
+
+See how the demo application uses Consul HTTP API to lookup the current registered services:
+```
+http://localhost:8001/demos/api
+```
 
 
 ### Step 5: Key / Value Storage

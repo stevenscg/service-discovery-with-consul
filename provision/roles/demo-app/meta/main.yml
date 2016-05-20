@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Chris Stevens
+  description: Configures a demo app
+  min_ansible_version: 1.9
+  license: MIT
+
+  platforms:
+  - name: EL
+    versions:
+    - 6
+
+  categories:
+  - app
+
+dependencies: []
