@@ -10,13 +10,13 @@
         </div>
         <div>
             <h4>Output</h4>
-            <pre>{{ $jp->prettify($results[0], null, '  ') }}</pre>
+            <pre class="pre-scrollable">{{ $jp->prettify($results[0], null, '  ') }}</pre>
         </div>
 
         <hr/>
 
         <div>
-            <h3>Example 1: Consul PHP SDK</h3>
+            <h3>Example 2: Consul PHP SDK</h3>
             <h4>Code</h4>
             <pre>
 $dns = new Consul\Helper\Dns();
@@ -29,7 +29,7 @@ return $results;
         </div>
         <div>
             <h4>Output</h4>
-            <pre>{{ $jp->prettify($results[1], null, '  ') }}</pre>
+            <pre class="pre-scrollable">{{ $jp->prettify($results[1], null, '  ') }}</pre>
         </div>
 
         <hr/>

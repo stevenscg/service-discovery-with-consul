@@ -34,7 +34,7 @@ class DemosController extends Controller
         $results[] = json_decode($catalog->services()->getBody(), true);
 
         $health = $sf->get('health');
-        $results[] = json_decode($health->service('cache', ['near' => '_agent', 'passing' => 1])->getBody(), true);
+        $results[] = json_decode($health->service('web', ['near' => '_agent', 'passing' => 1])->getBody(), true);
 
         $jp = new JsonPretty;
         return view('demos.api', compact('jp', 'results'));
@@ -47,12 +47,18 @@ class DemosController extends Controller
         $kv = $sf->get('kv');
 
         $kv->put('test/foo/bar', json_encode(['foo' => 'bar']));
+        $kv->put('test/foo/bazz', true);
+
+        $results = [];
 
         $result = $kv->get('test/foo/bar');
-        $value  = json_decode($result->getBody(), true);
+        $results[]  = json_decode($result->getBody(), true);
+
+        $result = $kv->get('test/foo/bazz', ['raw' => true]);
+        $results[]  = json_decode($result->getBody(), true);
 
         $jp = new JsonPretty;
-        return view('demos.kv', compact('jp', 'value'));
+        return view('demos.kv', compact('jp', 'results'));
     }
 
 
@@ -72,5 +78,28 @@ class DemosController extends Controller
 
         $jp = new JsonPretty;
         return view('demos.locks', compact('jp', 'lockAcquired'));
+    }
+
+
+    public function features()
+    {
+        $fh = new Consul\Helper\Feature();
+
+        $results = [];
+
+        // Create a feature flag "foo" that is enabled (on = true)
+        $results[] = $fh->set('foo', ['on' => true, 'name' => 'Foo Feature']);
+
+        // Toggle application logic
+        $results[] = $fh->toggle('foo');
+
+        // Fetch the feature object as it exists in the KV
+        $results[] = $fh->get('foo');
+
+        // Decode the feature object for use in a dashboard, etc.
+        $results[] = $fh->decode($fh->get('foo')[0]);
+
+        $jp = new JsonPretty;
+        return view('demos.features', compact('jp', 'fh', 'results'));
     }
 }

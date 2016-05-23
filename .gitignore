@@ -2,6 +2,7 @@
 .DS_store
 .vagrant
 *.retry
+npm-debug.log
 
 provision/roles/*
 demo-app/public/build/*

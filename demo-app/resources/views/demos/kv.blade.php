@@ -23,7 +23,31 @@ return $value;
 
         <div>
             <h4>Output</h4>
-            <pre>{{ $jp->prettify($value, null, '  ') }}</pre>
+            <pre class="pre-scrollable">{{ $jp->prettify($results[0], null, '  ') }}</pre>
+        </div>
+
+        <hr/>
+
+        <div>
+            <h3>Example 2: <span class="label label-warning">PUT</span> /v1/kv/test/foo/bazz?raw=true</h3>
+
+            <h4>Code</h4>
+            <pre>
+$sf = new Consul\ServiceFactory();
+$kv = $sf->get('kv');
+
+$kv->put('test/foo/bazz', true);
+
+$result = $kv->get('test/foo/bazz');
+$value  = json_decode($result->getBody(), true);
+
+return $value;
+            </pre>
+        </div>
+
+        <div>
+            <h4>Output</h4>
+            <pre class="pre-scrollable">{{ $jp->prettify($results[1], null, '  ') }}</pre>
         </div>
 
         <hr/>

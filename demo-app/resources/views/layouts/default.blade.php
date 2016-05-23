@@ -35,6 +35,7 @@
                     <li><a href="/demos/api">HTTP API</a></li>
                     <li><a href="/demos/kv">Key / Value Storage</a></li>
                     <li><a href="/demos/locks">Locks</a></li>
+                    <li><a href="/demos/locks">Feature Flags</a></li>
                   </ul>
                 </li>
               </ul>

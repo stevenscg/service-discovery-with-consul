@@ -33,6 +33,12 @@
       <p>Use the Consul session and KV for locks.</p>
       <p><a class="btn btn-default" href="demos/locks" role="button">View details &raquo;</a></p>
     </div>
+
+    <div class="col-md-4">
+      <h2>Feature Flags</h2>
+      <p>Use the Consul KV for feature flags.</p>
+      <p><a class="btn btn-default" href="demos/features" role="button">View details &raquo;</a></p>
+    </div>
   </div>
 
 </div> <!-- /container -->

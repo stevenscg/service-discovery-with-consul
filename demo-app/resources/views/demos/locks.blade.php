@@ -28,8 +28,8 @@ $lh->release();
         <hr/>
 
         <div class="page-nav">
-            <a class="btn btn-large btn-primary pull-left" href="/demos/kv">&laquo; Back: Key / Value</a>
-            <a class="btn btn-large btn-primary pull-right" href="/">Start Over &raquo;</a>
+            <a class="btn btn-large btn-primary pull-left" href="/demos/locks">&laquo; Back: Locks</a>
+            <a class="btn btn-large btn-primary pull-right" href="/demos/features">Next: Feature Flags &raquo;</a>
         </div>
     </div>
 </div>

@@ -21,13 +21,13 @@ return $results;
         </div>
         <div>
             <h4>Output</h4>
-            <pre>{{ $jp->prettify($results[0], null, '  ') }}</pre>
+            <pre class="pre-scrollable">{{ $jp->prettify($results[0], null, '  ') }}</pre>
         </div>
 
         <hr/>
 
         <div>
-            <h3>Example 2: <span class="label label-primary">GET</span> /v1/health/service/cache?near=_agent&passing</h3>
+            <h3>Example 2: <span class="label label-primary">GET</span> /v1/health/service/web?near=_agent&passing</h3>
 
             <h4>Code</h4>
             <pre>
@@ -36,14 +36,14 @@ $sf = new Consul\ServiceFactory();
 $results = [];
 
 $health = $sf->get('health');
-$results[] = json_decode($health->service('cache', ['passing'])->getBody(), true);
+$results[] = json_decode($health->service('web', ['near' => '_agent', 'passing'])->getBody(), true);
 
 return $results;
             </pre>
         </div>
         <div>
             <h4>Output</h4>
-            <pre>{{ $jp->prettify($results[1], null, '  ') }}</pre>
+            <pre class="pre-scrollable">{{ $jp->prettify($results[1], null, '  ') }}</pre>
         </div>
 
         <hr/>
