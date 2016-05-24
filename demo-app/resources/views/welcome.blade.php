@@ -4,7 +4,7 @@
   <div class="container">
     <h1>Service Discovery with Consul</h1>
     <p>This application demonstrates using various Consul features for service discovery.</p>
-    <p><a class="btn btn-primary btn-lg" href="/demos/dns" role="button">Get started &raquo;</a></p>
+    <p><a class="btn btn-primary btn-lg" href="demos/dns" role="button">Get started &raquo;</a></p>
   </div>
 </div>
 
