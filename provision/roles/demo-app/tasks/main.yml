@@ -2,14 +2,7 @@
 #
 # Ansible tasks for the demo application.
 #
-# 
-# - name: Ensure the app directory is ready
-#   file:
-#     path:  "{{ app_deploy_path }}"
-#     owner: "{{ app_deploy_user }}"
-#     group: "{{ app_deploy_group }}"
-#     mode: 0775
-#     state: directory
+
 
 - name: Ensure the nginx configuration is installed
   template:

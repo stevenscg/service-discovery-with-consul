@@ -5,6 +5,10 @@
 #
 # @author Chris Stevens https://github.com/stevenscg
 #
+# Usage
+#   Note: Run automatically with "vagrant up" and "vagrant provision"
+#   ansible-playbook provision/playbook.yml -b -i .vagrant/provisioners/ansible/inventory
+#
 
 
 - hosts: all
@@ -47,10 +51,10 @@
         - nginx
 
     - role: nodejs
-      nodejs_version: "5.x"
+      nodejs_version: "6.x"
       tags:
         - nodejs
-
+    
     - role: memcached
       tags:
         - memcached
