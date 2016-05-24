@@ -46,16 +46,21 @@ class DemosController extends Controller
         $sf = new Consul\ServiceFactory();
         $kv = $sf->get('kv');
 
-        $kv->put('test/foo/bar', json_encode(['foo' => 'bar']));
-        $kv->put('test/foo/bazz', true);
+        // PUT body is a string
+        $kv->put('test/foo/bar',  'some string');
+
+        // PUT body is a JSON object
+        $kv->put('test/foo/bazz', json_encode(['foo' => 'bar']));
 
         $results = [];
 
+        // Fetch the whole kv object
         $result = $kv->get('test/foo/bar');
         $results[]  = json_decode($result->getBody(), true);
 
+        // Fetch just the raw value
         $result = $kv->get('test/foo/bazz', ['raw' => true]);
-        $results[]  = json_decode($result->getBody(), true);
+        $results[]  = (string) $result->getBody();
 
         $jp = new JsonPretty;
         return view('demos.kv', compact('jp', 'results'));

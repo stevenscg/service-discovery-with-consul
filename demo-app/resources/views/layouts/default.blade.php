@@ -11,7 +11,7 @@
     <title>@yield('title') @if (View::hasSection('title'))|@endif Service Discovery with Consul</title>
 
     <!-- Styles -->
-    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
 </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -33,9 +33,9 @@
                   <ul class="dropdown-menu">
                     <li><a href="/demos/dns">DNS</a></li>
                     <li><a href="/demos/api">HTTP API</a></li>
-                    <li><a href="/demos/kv">Key / Value Storage</a></li>
+                    <li><a href="/demos/kv">Key / Value Store</a></li>
                     <li><a href="/demos/locks">Locks</a></li>
-                    <li><a href="/demos/locks">Feature Flags</a></li>
+                    <li><a href="/demos/features">Feature Flags</a></li>
                   </ul>
                 </li>
               </ul>
@@ -50,6 +50,6 @@
         <p>&copy; Chris Stevens</p>
         </footer> -->
 
-        <script src="{{ elixir('js/app.js') }}"></script>
+        <script src="/js/app.js"></script>
     </body>
 </html>
